@@ -1,0 +1,1 @@
+"../../bin/esmini" --window 60 60 1024 576  --osc ../../resources/xosc/T-shape-intersection.xosc --trail_mode 1 --disable_controllers --fixed_timestep 0.033 --capture_screen

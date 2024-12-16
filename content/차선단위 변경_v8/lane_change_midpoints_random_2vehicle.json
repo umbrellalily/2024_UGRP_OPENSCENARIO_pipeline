@@ -1,0 +1,48 @@
+{
+    "vehicle0": [
+        {
+            "start_lane": 2,
+            "end_lane": 1,
+            "enter_time": 0,
+            "leave_time": 2.0,
+            "midpoint_time": 1.0
+        },
+        {
+            "start_lane": 1,
+            "end_lane": 1,
+            "enter_time": 2.0,
+            "leave_time": 3.93,
+            "midpoint_time": 2.93
+        },
+        {
+            "start_lane": 1,
+            "end_lane": 1,
+            "enter_time": 3.93,
+            "leave_time": 4.8,
+            "midpoint_time": 4.33
+        },
+        {
+            "start_lane": 1,
+            "end_lane": 1,
+            "enter_time": 4.8,
+            "leave_time": 6.27,
+            "midpoint_time": 5.53
+        },
+        {
+            "start_lane": 1,
+            "end_lane": 1,
+            "enter_time": 6.27,
+            "leave_time": 6.93,
+            "midpoint_time": 6.6
+        }
+    ],
+    "vehicle1": [
+        {
+            "start_lane": 1,
+            "end_lane": -1,
+            "enter_time": 0,
+            "leave_time": 10,
+            "midpoint_time": 5
+        }
+    ]
+}

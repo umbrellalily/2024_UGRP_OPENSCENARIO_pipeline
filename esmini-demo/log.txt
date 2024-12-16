@@ -1,0 +1,9 @@
+esmini GIT REV: N/A
+esmini GIT TAG: N/A
+esmini GIT BRANCH: N/A
+esmini BUILD VERSION: 3911
+No fixed timestep specified - running in realtime speed
+Disable entity controllers
+Generated seed 2000447267
+Couldn't locate OpenSCENARIO file bb_3_220817_vehicle_209_32197.xosc
+Closing

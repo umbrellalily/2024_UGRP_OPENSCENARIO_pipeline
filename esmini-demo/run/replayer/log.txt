@@ -1,0 +1,94 @@
+esmini GIT REV: N/A
+esmini GIT TAG: N/A
+esmini GIT BRANCH: N/A
+esmini BUILD VERSION: 3911
+Run simulation decoupled from realtime, with fixed timestep: 0.01
+Disable entity controllers
+Generated seed 3057788297
+Loading ../../resources/xosc/./ltap-od.xosc (v1.0)
+0 variables
+Loaded OpenDRIVE: ../../resources/xosc/./../xodr/fabriksgatan.xodr
+Expr ${250/3.6} = 250/3.6 = 69.4444444444
+Route::AddWaypoint Added waypoint 0: 0, 1, 63.00
+Route::AddWaypoint Added intermediate waypoint 1 roadId 9 laneId -1
+Route::AddWaypoint Added waypoint 2: 2, 1, 5.00
+Route::AddWaypoint Added waypoint 0: 0, 1, 63.00
+Route::AddWaypoint Added intermediate waypoint 1 roadId 9 laneId -1
+Route::AddWaypoint Added waypoint 2: 2, 1, 5.00
+Entity  on route
+Route::AddWaypoint Added waypoint 0: 2, -1, 100.00
+Route::AddWaypoint Added intermediate waypoint 1 roadId 15 laneId -1
+Route::AddWaypoint Added waypoint 2: 1, -1, 5.00
+Route::AddWaypoint Added waypoint 0: 2, -1, 100.00
+Route::AddWaypoint Added intermediate waypoint 1 roadId 15 laneId -1
+Route::AddWaypoint Added waypoint 2: 1, -1, 5.00
+Entity  on route
+Route::AddWaypoint Added waypoint 0: 2, -1, 100.00
+Route::AddWaypoint Added intermediate waypoint 1 roadId 15 laneId -1
+Route::AddWaypoint Added waypoint 2: 1, -1, 5.00
+Entity  on route
+8 parameters:
+   EgoSyncPoint1S = 7
+   NPCSyncPointS = 455
+   NPCStartPointS = 150
+   NPCFinalSpeed = 7
+   NPCInitialSpeed = 10
+   HostSpeed = 10
+   NPCVehicle = car_red
+   HostVehicle = car_white
+0.000: Recording data to file simulation.dat
+0.000: Init Ego RoutingAction initState -> startTransition -> runningState
+0.000: Init Ego TeleportAction initState -> startTransition -> runningState
+0.000: Starting teleport Action
+0.000: Entity Ego on route
+0.000: Ego New position:
+0.000: Pos(42.98, -71.25, 0.00) Rot(1.78, 0.00, 0.00) roadId 0 laneId 1 offset 0.00 t 1.75
+0.000: Init Ego LongitudinalAction initState -> startTransition -> runningState
+0.000: Init NPC RoutingAction initState -> startTransition -> runningState
+0.000: Init NPC TeleportAction initState -> startTransition -> runningState
+0.000: Starting teleport Action
+0.000: Entity NPC on route
+0.000: NPC New position:
+0.000: Pos(12.70, 57.92, 0.00) Rot(4.90, 0.00, 0.00) roadId 2 laneId -1 offset 0.00 t -1.75
+0.000: Init NPC LongitudinalAction initState -> startTransition -> runningState
+0.000: storyBoard initState -> startTransition -> runningState
+0.000: LTAPStory initState -> startTransition -> runningState
+0.000: LTAPActNPC initState -> initToStandbyTransition -> standbyState
+0.000: Init Ego RoutingAction runningState -> endTransition -> completeState
+0.000: Init Ego TeleportAction runningState -> endTransition -> completeState
+0.000: Init Ego LongitudinalAction runningState -> endTransition -> completeState
+0.000: Init NPC RoutingAction runningState -> endTransition -> completeState
+0.000: Init NPC TeleportAction runningState -> endTransition -> completeState
+0.000: Init NPC LongitudinalAction runningState -> endTransition -> completeState
+0.010: Trigger /------------------------------------------------
+0.010: LtapActStartConditionNPC == true, 0.0100 > 0.0000 edge: none
+0.010: Trigger  ------------------------------------------------/
+0.010: LTAPActNPC standbyState -> startTransition -> runningState
+0.010: LTAPSequence initState -> startTransition -> runningState
+0.010: ManeuverNPC initState -> startTransition -> runningState
+0.010: SyncEvent initState -> initToStandbyTransition -> standbyState
+0.010: Trigger /------------------------------------------------
+0.010: SyncConditionNPC == true, element: LTAPActNPC state: START_TRANSITION, edge: none
+0.010: Trigger  ------------------------------------------------/
+0.010: SyncEvent standbyState -> startTransition -> runningState
+0.010: SyncActionNPC initState -> startTransition -> runningState
+5.500: Synchronize masterTimeToDest (0.003) reached within this timestep (0.010)
+5.500: SyncActionNPC runningState -> endTransition -> completeState
+5.500: SyncEvent complete after 1 execution
+5.500: SyncEvent runningState -> endTransition -> completeState
+5.500: ManeuverNPC runningState -> endTransition -> completeState
+5.500: LTAPSequence complete after 1 execution
+5.500: LTAPSequence runningState -> endTransition -> completeState
+5.500: LTAPActNPC runningState -> endTransition -> completeState
+5.500: LTAPStory runningState -> endTransition -> completeState
+5.510: QuitCondition timer 4.00s started
+8.660: Entity NPC moved out of route
+8.660: End of route at road_id 1 lane_id -1 s 5.04
+9.510: QuitCondition timer expired at 4.00 seconds
+9.510: Trigger /------------------------------------------------
+9.510: DoneCondition == true, element: SyncEvent state: COMPLETE, edge: none
+9.510: QuitCondition == true, speed: 7.00 == 7.00, edge: rising
+9.510: Triggering entity 0: NPC
+9.510: Trigger  ------------------------------------------------/
+9.510: storyBoard runningState -> stopTransition -> completeState
+Closing

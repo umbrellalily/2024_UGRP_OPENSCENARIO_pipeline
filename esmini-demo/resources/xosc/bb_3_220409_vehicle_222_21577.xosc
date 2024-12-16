@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSCENARIO>
+   <FileHeader revMajor="1" revMinor="1" date="2023-04-28T22:00:00" description="cut-in" author="seunghyun"/> <!-- 파일 정보 -->
+
+   <ParameterDeclarations> <!-- 변수를 선언하여 중복되는 값을 쉽게 사용할 수 있다. $name으로 사용한다. -->
+      <ParameterDeclaration name="WhiteCar" parameterType="string" value="car_white"/>
+      <ParameterDeclaration name="RedCar" parameterType="string" value="car_red"/>
+   </ParameterDeclarations>
+
+   <CatalogLocations> <!-- 미리 정의해둔 카탈로그를 불러와 사용할 수 있다. -->
+      <VehicleCatalog>
+         <Directory path="../xosc/Catalogs/Vehicles"/>
+      </VehicleCatalog>
+   </CatalogLocations>
+
+   <RoadNetwork> <!-- OpenDRIVE 형식으로 저장된 도로 정보를 불러온다. -->
+      <LogicFile filepath="../xodr/e6mini.xodr"/>
+      <SceneGraphFile filepath="../models/e6mini.osgb"/>
+   </RoadNetwork>
+
+   <Entities> <!-- 시나리오에 등장하는 객체를 정의한다. -->
+      <ScenarioObject name="Ego">
+        <CatalogReference catalogName="VehicleCatalog" entryName="$WhiteCar"/>
+      </ScenarioObject>
+      <ScenarioObject name="TargetVehicle">
+         <CatalogReference catalogName="VehicleCatalog" entryName="$RedCar"/>
+      </ScenarioObject>
+   </Entities>
+
+   <Storyboard>
+      <Init> <!-- Entities의 초기 상태를 정의한다. -->
+         <Actions>
+            <Private entityRef="Ego">
+               <PrivateAction>
+                  <TeleportAction>
+                     <Position> <!-- 위치를 정의한다. -->
+                        <LanePosition roadId="0" laneId="-3" offset="0" s="100"/> <!-- 위에서 불러온 도로 정보를 기반으로 정의한다. -->
+                     </Position>
+                  </TeleportAction>
+               </PrivateAction>
+               <PrivateAction>
+                  <LongitudinalAction>
+                     <SpeedAction> <!-- 속도를 정의한다. -->
+                        <SpeedActionDynamics dynamicsShape="step" dynamicsDimension="time" value="0.0"/> 
+                        <SpeedActionTarget>
+                           <AbsoluteTargetSpeed value="27.77777777777778"/>
+                        </SpeedActionTarget>
+                     </SpeedAction>
+                  </LongitudinalAction>
+               </PrivateAction>
+            </Private>
+            <Private entityRef="TargetVehicle">
+               <PrivateAction>
+                  <TeleportAction>
+                     <Position>
+                        <LanePosition roadId="0" laneId="-2" offset="0" s="0"/>
+                     </Position>
+                  </TeleportAction>
+               </PrivateAction>
+               <PrivateAction>
+                  <LongitudinalAction>
+                     <SpeedAction>
+                        <SpeedActionDynamics dynamicsShape="step" dynamicsDimension="time" value="0.0"/>
+                        <SpeedActionTarget>
+                           <AbsoluteTargetSpeed value="41.666666666666664"/>
+                        </SpeedActionTarget>
+                     </SpeedAction>
+                  </LongitudinalAction>
+               </PrivateAction>
+            </Private>
+         </Actions>
+      </Init>
+
+
+      <Story name="CutInStory"> <!-- Entities가 수행할 행동을 정의한다. -->
+         <Act name="CutInAct">
+
+            <ManeuverGroup maximumExecutionCount="1" name="CutInSequence">
+               <Actors selectTriggeringEntities="false">
+                  <EntityRef entityRef="TargetVehicle"/>
+               </Actors>
+               <Maneuver name="CutInManeuver">
+                  <Event name="CutInEvent" priority="overwrite">
+                     <Action name="CutInAction"> <!-- EntityRef에서 정의된 Entities가 수행할 행동을 정의한다. -->
+                        <PrivateAction>
+                           <LateralAction>
+                              <LaneChangeAction> <!-- 횡방향 행동 중 차선 변경 행동을 의미힌다. -->
+                                 <LaneChangeActionDynamics dynamicsShape="sinusoidal" value="8" dynamicsDimension="time"/><!-- ***이 값은 얼마나 앞에서 차선을 변경하는 가이다 -->
+                                 <LaneChangeTarget>
+                                    <RelativeTargetLane entityRef="Ego" value="0"/> <!-- Ego 차량과 동일한 차선을 의미한다. 0이 ego와 같은 차선-->
+                                 </LaneChangeTarget>
+                              </LaneChangeAction>
+                           </LateralAction>
+                        </PrivateAction>
+                     </Action>
+
+                     <StartTrigger>
+                        <ConditionGroup>
+                           <Condition name="CutInActStart" delay="0" conditionEdge="rising">
+                              <ByValueCondition>
+                                 <SimulationTimeCondition value="2" rule="greaterThan"/>
+                              </ByValueCondition>
+                           </Condition>
+                        </ConditionGroup>
+                     </StartTrigger>
+                  </Event>
+               </Maneuver>
+            </ManeuverGroup>
+
+            <ManeuverGroup maximumExecutionCount="1" name="Speedup">
+                  <Actors selectTriggeringEntities="false">
+                     <EntityRef entityRef="TargetVehicle"/>
+                  </Actors>
+                  <Maneuver name="SpeedupManeuver">
+                     <Event name="SpeedupEvent" priority="overwrite">
+                        <Action name="SpeedupAction"> <!-- EntityRef에서 정의된 Entities가 수행할 행동을 정의한다. -->
+                           <PrivateAction>
+                              <LongitudinalAction>
+                                 <SpeedAction>
+                                    <SpeedActionDynamics dynamicsShape="step" dynamicsDimension="time" value="0.0"/>
+                                    <SpeedActionTarget>
+                                       <AbsoluteTargetSpeed value="27.77777777777778"/>
+                                    </SpeedActionTarget>
+                                 </SpeedAction>
+                              </LongitudinalAction>
+                           </PrivateAction>
+                        </Action>
+
+                        <StartTrigger>
+                           <ConditionGroup>
+                              <Condition name="CutInActStart" delay="0" conditionEdge="rising">
+                                 <ByValueCondition>
+                                    <SimulationTimeCondition value="100" rule="greaterThan"/>
+                                 </ByValueCondition>
+                              </Condition>
+                           </ConditionGroup>
+                        </StartTrigger>
+                     </Event>
+                  </Maneuver>
+               </ManeuverGroup>
+
+
+            <StartTrigger> <!-- Act가 시작되는 시기를 정의한다. -->
+               <ConditionGroup>
+                  <Condition name="CutInActStart" delay="0" conditionEdge="none">
+                     <ByValueCondition>
+                        <SimulationTimeCondition value="0" rule="greaterThan"/> <!-- Act는 시뮬레이션이 시작되고 0초 이상에서 시작된다. -->
+                     </ByValueCondition>
+                  </Condition>
+               </ConditionGroup>
+            </StartTrigger>
+         </Act>
+      </Story>
+
+      <StopTrigger>
+         <ConditionGroup>
+            <Condition name="ActStopCondition" delay="0" conditionEdge="rising">
+                  <ByEntityCondition>
+                     <TriggeringEntities triggeringEntitiesRule="any">
+                        <EntityRef entityRef="Ego"/>
+                     </TriggeringEntities>
+                     <EntityCondition>
+                        <RelativeDistanceCondition entityRef="TargetVehicle" value="3" freespace="false" coordinateSystem="entity" relativeDistanceType="euclidianDistance" rule="lessThan"/>
+                     </EntityCondition>
+                  </ByEntityCondition>
+            </Condition>
+         </ConditionGroup>
+      </StopTrigger>
+   </Storyboard>
+</OpenSCENARIO>
