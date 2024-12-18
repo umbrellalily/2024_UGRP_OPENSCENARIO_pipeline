@@ -3,7 +3,6 @@
 # offset을 추가하여 차선 사이로 주행 가능
 # lane_change_values를 추가해 차선 변경에 걸리는 시간 조정 가능
 # speed_change_values를 추가해 속도 변경에 걸리는 시간 조정 가능
-# bb_3_220817_vehicle_209_32197에 대한 manual한 예제
 # 모든 차량에 대해 서로 가까워졌을 때 stop_trigger을 적용
 
 #json파일을 읽어서 autotext에 사용가능한 형식으로 가공한다.
